@@ -1,30 +1,50 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, TextInput } from 'react-native';
 import { Constants } from 'expo';
 
 export default class App extends Component {
   state = {
-    items: new Array(100).fill(0).map((a, i) => i).map(i => ({
-      title: `Note title ${i}`,
-      content: `Note content  #${i}. This is my ${i} note.`,
-    })),
+    actions: [],
+    value: '',
   };
+
 
   render() {
     return (
       <View style={styles.container}>
+      <View>
+
+      </View>
+      <TextInput
+                placeholder="Enter text"
+                returnKeyType="done"
+                value={this.state.value}
+                onChangeText={this.textChanged}
+                onSubmitEditing={this.submit}
+              />
         <ScrollView style={styles.scrollView}>
-        <Text style={styles.header}>List off my notes</Text>
-          {this.state.items.map(({ title, content }) => (
-            <View key={title} style={styles.item}>
-              <Text style={styles.title}>{title}</Text>
-              <Text style={styles.content}>{content}</Text>
-            </View>
-          ))}
+        <Text style={styles.header}>List of my notes</Text>
+        {this.state.actions.map(({ content }) => (
+          <View key={content} style={styles.item}>
+            <Text style={styles.content}>{content}</Text>
+          </View>
+        ))}
         </ScrollView>
       </View>
     );
   }
+  textChanged = text =>
+    this.setState(state => ({
+      value: text,
+    }));
+
+  submit = text =>
+  this.setState(state => ({
+    actions: state.actions.concat({
+      content: state.value,
+    }),
+    value: '',
+  }));
 }
 
 const styles = StyleSheet.create({
@@ -44,7 +64,7 @@ const styles = StyleSheet.create({
   item: {
     padding: 10,
     backgroundColor: '#EEEEEE',
-    borderBottomColor: 'black',
+    borderBottomColor: 'grey',
     borderBottomWidth: 1,
     backgroundColor: 'lightgrey',
   },
