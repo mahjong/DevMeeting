@@ -14,6 +14,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
+        <Text style={styles.header}>List off my notes</Text>
           {this.state.items.map(({ title, content }) => (
             <View key={title} style={styles.item}>
               <Text style={styles.title}>{title}</Text>
@@ -32,10 +33,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: 'aliceblue',
+  },
+  header: {
+    fontWeight: 'bold',
+    backgroundColor: 'blueviolet',
+    color: 'white',
+    padding: 10,
   },
   item: {
-    marginBottom: 20,
+    padding: 10,
+    backgroundColor: '#EEEEEE',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    backgroundColor: 'lightgrey',
   },
   title: {
     fontWeight: 'bold',
